@@ -1,0 +1,23 @@
+.outer {
+    vertical-align: middle;
+}
+
+.inner {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+table {
+    border: 2px solid black;
+    border-collapse: collapse;
+}
+
+th {
+    border: 2px solid black;
+    padding: 7px 10px;
+}
+
+td {
+    border: 2px solid black;
+    padding: 2px 6px;
+}
