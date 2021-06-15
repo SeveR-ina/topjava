@@ -5,9 +5,8 @@ import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
-import ru.javawebinar.topjava.web.SecurityUtil;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -19,7 +18,7 @@ public class InMemoryMealRepository implements MealRepository {
     private final AtomicInteger counter = new AtomicInteger(0);
 
     {
-        MealsUtil.meals.forEach(meal -> save(meal, SecurityUtil.authUserId()));
+        MealsUtil.meals.forEach(meal -> save(meal, meal.getUserId()));
     }
 
     @Override
@@ -56,10 +55,10 @@ public class InMemoryMealRepository implements MealRepository {
     }
 
     @Override
-    public Collection<Meal> getAll(int userId, LocalTime min, LocalTime max) {
+    public Collection<Meal> getAll(int userId, LocalDate min, LocalDate max) {
         return repository.values().stream()
                 .filter(meal -> meal.getUserId() == userId)
-                .filter(meal -> DateTimeUtil.isBetweenHalfOpen(meal.getTime(), min, max))
+                .filter(meal -> DateTimeUtil.isBetweenDateHalfOpen(meal.getDate(), min, max))
                 .sorted(Comparator.comparing(Meal::getDateTime).reversed())
                 .collect(Collectors.toList());
     }

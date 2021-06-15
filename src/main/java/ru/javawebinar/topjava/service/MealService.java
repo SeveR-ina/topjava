@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.Collection;
 
 
@@ -19,7 +19,7 @@ public class MealService {
         this.repository = repository;
     }
 
-    public Collection<Meal> getAll(int userId, LocalTime min, LocalTime max) {
+    public Collection<Meal> getAll(int userId, LocalDate min, LocalDate max) {
         return repository.getAll(userId, min, max);
     }
 
